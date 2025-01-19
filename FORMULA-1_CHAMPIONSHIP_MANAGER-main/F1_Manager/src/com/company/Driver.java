@@ -1,8 +1,8 @@
 package com.company;
 
 import java.io.Serializable;
-public abstract class Driver implements Serializable { // abstract class Driver
-    private String dlocation; //variables
+public abstract class Driver implements Serializable { 
+    private String dlocation; 
     private String dteam;
     private String dname;
     private int noposition;
@@ -12,7 +12,7 @@ public abstract class Driver implements Serializable { // abstract class Driver
     private int NoOfsecondPlaces;
     private int NoOfthirdPlaces;
 
-    public Driver(String name, String location, String dteam, int noraces) { // constructor
+    public Driver(String name, String location, String dteam, int noraces) { 
         this.dname = name;
         this.dlocation = location;
         this.dteam = dteam;
@@ -61,7 +61,7 @@ public abstract class Driver implements Serializable { // abstract class Driver
         return noraces;
     }
 
-    public void setNoraces() { //for calculate the no of races in Formular1Championshipmanager inside cal method
+    public void setNoraces() { 
         this.noraces++;
     }
 
