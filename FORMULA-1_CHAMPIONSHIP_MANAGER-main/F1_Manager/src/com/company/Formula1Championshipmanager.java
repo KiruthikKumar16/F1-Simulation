@@ -6,26 +6,26 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Formula1Championshipmanager implements ChampionshipManager { //implementing the championship manager interface
-    public static Scanner input = new Scanner(System.in); // static scanner class
-    private ArrayList < Formular1Driver > drivers = new ArrayList < > (); // arraylist for drivers
-    private ArrayList < Race > races = new ArrayList < > (); // arraylist for races
+public class Formula1Championshipmanager implements ChampionshipManager {
+    public static Scanner input = new Scanner(System.in);
+    private ArrayList < Formular1Driver > drivers = new ArrayList < > (); 
+    private ArrayList < Race > races = new ArrayList < > (); 
     public ArrayList < Formular1Driver > getDrivers() {
         return drivers;
-    } //getter method for Arraylist Formular1Driver(to call the drivers out)
+    } 
     public ArrayList < Race > getRaces() {
         return races;
-    } //getter method for Arraylist Race to call the races out
+    } 
     @Override
-    public void createDriver() { //this is create driver method overided from championshipmanager interface
-        String dname = strValidInputs("Enter name of Driver :"+ "\n"); //calling the validation method and String validation for the input Drivername
+    public void createDriver() { 
+        String dname = strValidInputs("Enter name of Driver :"+ "\n"); 
         if (driverValidate(dname)) {
-            String dteam = strValidInputs("Enter team name : "+ "\n"); //calling the validation method and String validation for the input Team name
+            String dteam = strValidInputs("Enter team name : "+ "\n"); 
             if (teamValidate(dteam)) {
                 String dlocation = strValidInputs("Enter location :"+ "\n");
-                int noraces = intValidInputs("Enter races participated : " + "\n"); // calling the validation method and String validation for the input races
+                int noraces = intValidInputs("Enter races participated : " + "\n");
                 Formular1Driver driver = new Formular1Driver(dname, dlocation, dteam, noraces);
-                drivers.add(driver); //adds into the Formular1Driver arraylist
+                drivers.add(driver);
                 System.out.println("\n new Driver " + dname + " Successfully Added.\n");
             } else {
                 System.out.println("Team already exists");
@@ -35,7 +35,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         }
     }
 
-    public boolean driverValidate(String name) { // validate the driver checks weather it already exsits?
+    public boolean driverValidate(String name) {
         for (Formular1Driver l: drivers) {
             if (l.getDname().equals(name)) {
                 return false;
@@ -44,7 +44,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         return true;
     }
 
-    public boolean teamValidate(String team) { // validate the team checks weather it already exsits?
+    public boolean teamValidate(String team) {
         for (Formular1Driver s: drivers) {
             if (s.getDteam().equals(team)) {
                 return false;
@@ -53,22 +53,21 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         return true;
     }
 
-    //=================================================================================================
     @Override
-    public void deleteDriver() { //delete driver method overided from ChampionshipManager interface
+    public void deleteDriver() {
         Formular1Driver a = null;
         System.out.println("Enter the name of the driver to delete:");
         String deldriver = input.next();
         System.out.println("------------------------------------------");
         boolean found = false;
         for (Formular1Driver i: drivers) {
-            if (i.getDname().equals(deldriver)) { //delete condition
+            if (i.getDname().equals(deldriver)) {
                 a = i;
                 found = true;
                 break;
             }
         }
-        drivers.remove(a); // removes the selected items from the array.
+        drivers.remove(a);
         if (!found) {
             System.out.println("Record is not found !!");
         } else {
@@ -76,33 +75,31 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
             System.out.println("\n  Driver " + deldriver + " Sucessfully Deleted.\n");
         }
     }
-    //======================================================================================================================
-    public void changeDriver() { //change driver method overided from ChampionshipManager interface
+    public void changeDriver() { 
         System.out.println("Enter Drivers team name : ");
         String tname = input.next();
         System.out.println("------------------------------------------");
         for (Formular1Driver cdriver: drivers) {
-            if (cdriver.getDteam().equals(tname)) { //changing condition
+            if (cdriver.getDteam().equals(tname)) {
                 System.out.println("Enter new driver : ");
                 String dName = input.next();
-                cdriver.setDname(dName); //this parameter sets the team name
+                cdriver.setDname(dName);
                 System.out.println("\n  Driver changed in ferarri team " + tname + " .\n");
             }
         }
     }
-    //======================================================================================================================
     @Override
-    public void addRace() { //add race method overided from ChampionshipManager interface
+    public void addRace() {
         try {
-            System.out.println("Enter the date of Race (dd/MM/yyyy): "); //race
+            System.out.println("Enter the date of Race (dd/MM/yyyy): "); 
             String ddate = input.next();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = formatter.parse(ddate);;
             Race race = new Race(date, drivers.size());
             races.add(race);
             for (Formular1Driver dpos: drivers) {
-                int driverpos = intValidInputs("Enter position of driver:" + dpos.getDname() + "\n"); // calling the validation method.
-                dpos.cal(driverpos); // calling the cal method
+                int driverpos = intValidInputs("Enter position of driver:" + dpos.getDname() + "\n"); 
+                dpos.cal(driverpos);
                 if (driverpos == 1) {
                     dpos.setNoOffirstplaces();
                 } else if (driverpos == 2) {
@@ -110,20 +107,17 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
                 } else if (driverpos == 3) {
                     dpos.setNoOfthirdPlaces();
                 }
-                dpos.setNoraces(); //to calculate the no of races
-                race.setDrivDetails(dpos.getDname(), String.valueOf(driverpos)); // calling the set method in race.java class
+                dpos.setNoraces();
+                race.setDrivDetails(dpos.getDname(), String.valueOf(driverpos));
             }
         } catch (ParseException ignored) {}
     }
-    //=====================valid start====================================
-    public static Integer intValidInputs(String intval) { // validate the inputs method for integers
+    public static Integer intValidInputs(String intval) {
         while (true) {
             System.out.print(intval);
             String unchecked1 = input.next();
             try {
-                //try to convert user input to integer
                 int checkInt = Integer.parseInt(unchecked1);
-                //is user input checking positive number or not
                 if (checkInt < 0) {
                     System.out.println("\nValid only positive numbers!\n");
                 } else
@@ -134,29 +128,24 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         }
     }
 
-    public static String strValidInputs(String StrVal2) { // validate the inputs method for strings
-        //this is string pattern wants to get from user
+    public static String strValidInputs(String StrVal2) { 
         String regX = "^[A-a-zZ\\s]+$";
-        //given string pattern compile to default format
         Pattern pattern = Pattern.compile(regX, Pattern.CASE_INSENSITIVE);
         while (true) {
             System.out.print(StrVal2);
             String unchecked2 = input.next();
-            //given user input matching to customize pattern
             Matcher matcher = pattern.matcher(unchecked2);
-            //if given input matched condition is true
             if (matcher.find()) {
                 return unchecked2;
             } else
                 System.out.println("\nString not in proper type!\n");
         }
     }
-    //=========================================valid end=========================
     @Override
-    public void viewstatistics() { // view statistics method overided from ChampionshipManager interface
+    public void viewstatistics() {
         String drivercom = strValidInputs("Enter the name to view statistics : ");
         for (Formular1Driver viewdst: drivers) {
-            if (viewdst.getDname().equals(drivercom)) { // the input name
+            if (viewdst.getDname().equals(drivercom)) {
                 System.out.println("Name: " + viewdst.getDname());
                 System.out.println("Location: " + viewdst.getDlocation());
                 System.out.println("Races participated: " + viewdst.getNoraces());
@@ -168,8 +157,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         }
     }
 
-    //Driver table
-    public void viewtable() { //this is view table method overided from ChampionshipManager interface
+    public void viewtable() { 
         boolean exists = false;
         if (!exists) {
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
@@ -183,7 +171,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             System.out.printf("%-18s | %-8s | %-8s| %-8s | %-8s| %-8s | %-8s| %-8s\n", "Name", "Team", "Location", "Racesparticipated", "Pointsearned", "1st positions", "2nd positions", "3rd positions");
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
-            Collections.sort(drivers, new PointsComparator()); // sort
+            Collections.sort(drivers, new PointsComparator()); 
             for (Formular1Driver viewtable: drivers) {
                 System.out.printf(leftAlignment, viewtable.getDname(), viewtable.getDteam(), viewtable.getDlocation(), viewtable.getNoraces(), viewtable.getNopoints(), viewtable.getNoOffirstplaces(), viewtable.getNoOfsecondPlaces(), viewtable.getNoOfthirdPlaces());
             }
@@ -191,11 +179,11 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
             System.out.println("Record is not found");
         }
     }
-    public void savefile() { //this is save to a txt file method overided from ChampionshipManager interface
+    public void savefile() { 
         try {
             File file = new File("drivers.txt");
-            file.createNewFile(); // create a new file
-            FileOutputStream fout = new FileOutputStream(file); //append
+            file.createNewFile(); 
+            FileOutputStream fout = new FileOutputStream(file); 
             ObjectOutputStream obj = new ObjectOutputStream(fout);
 
             obj.writeObject(drivers);
@@ -203,7 +191,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
             fout.close();
 
             File file2 = new File("race.txt");
-            file2.createNewFile(); // create a new file
+            file2.createNewFile();
             FileOutputStream fout2 = new FileOutputStream(file2);
             ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(fout2);
             objectOutputStream1.writeObject(races);
@@ -217,7 +205,7 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
             System.out.println("Error Initializing Stream!");
         }
     }
-    public void readfile() { //This is read file method overided from ChampionshipManager interface
+    public void readfile() { 
         try {
             FileInputStream fin = new FileInputStream("drivers.txt");
             ObjectInputStream objin = new ObjectInputStream(fin);
@@ -234,7 +222,6 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
         } catch (FileNotFoundException ignored) {
 
         } catch (IOException e) {
-            //System.out.println("Error Initializing Stream");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -242,6 +229,6 @@ public class Formula1Championshipmanager implements ChampionshipManager { //impl
     }
     public void exit() {
         System.exit(0);
-    } //method to exit the application
+    }
 
 }
