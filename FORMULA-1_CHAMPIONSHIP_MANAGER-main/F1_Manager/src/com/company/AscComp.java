@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Comparator;
 
-public class AscComp implements Comparator < Formular1Driver > { //Ascending Comparator
+public class AscComp implements Comparator < Formular1Driver > {
     @Override
     public int compare(Formular1Driver p1, Formular1Driver p2) {
         if (p1.getNopoints() == p2.getNopoints()) {
