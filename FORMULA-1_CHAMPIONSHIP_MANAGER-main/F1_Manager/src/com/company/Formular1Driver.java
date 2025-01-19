@@ -1,12 +1,12 @@
 package com.company;
 
 
-public class Formular1Driver extends Driver { // extending the abstract class
+public class Formular1Driver extends Driver { 
 
-    public Formular1Driver(String name, String location, String dteam, int noraces) { // constructor of formular1Driver
-        super(name, location, dteam,noraces);//acess the super class.
+    public Formular1Driver(String name, String location, String dteam, int noraces) {  
+        super(name, location, dteam,noraces);
     }
-    public void cal(int noposition){ //method to give points awarded for each driver in a race
+    public void cal(int noposition){
         if(noposition == 1){
              setNopoints(25);
         }else if(noposition == 2){
