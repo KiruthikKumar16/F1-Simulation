@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 public class Main {// Main class of the application
     /*
-    * ATTHANAYAKE WASALA MUDALI WALAWWE ISURU BANDARA ATTHANAYAKE
-    Uow No: w1810007
-    IIT No	:20200265
+    * KIRUTHK KUMAR M
+    REG.NO : 22BCT0163
     “ I confirm that I understand what plagiarism is and have read and understood the section on Assessment Offences in
     * the Essential Information for Students. The work that I have submitted is entirely my own. Any work from other authors is duly referenced and acknowledged.”
     */
