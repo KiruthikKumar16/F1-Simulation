@@ -2,7 +2,7 @@ package com.company;
 
 import java.io.IOException;
 
-public interface ChampionshipManager { // this is ChampionShip manager interface
+public interface ChampionshipManager {
 
     public void createDriver();
 
